@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Edit Offer</h2>
+<mat-dialog-content>
+  <form #form="ngForm">
+    <div class="form-group mb-3">
+      <label for="productName">Product Name</label>
+      <input type="text" class="form-control" id="productName" [(ngModel)]="offer.productName" name="productName" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="popularityValue">Popularity Value</label>
+      <input type="number" class="form-control" id="popularityValue" [(ngModel)]="offer.popularityValue" name="popularityValue" [readonly]="isPreorderChecked" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="me-1" for="isPreorder">Preorder</label>
+      <input type="checkbox" class="form-check-input" id="isPreorder" [(ngModel)]="offer.isPreorder" name="isPreorder" (change)="onPreorderChange()" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="type">Type</label>
+      <select class="form-control" id="type" [(ngModel)]="offer.type" name="type" (change)="onTypeChange()">
+        <option value="kinguin">Kinguin</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="price">Price</label>
+      <input type="number" class="form-control" id="price" [(ngModel)]="this.priceFormat" name="price" [value]="this.priceFormat" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="currency">Currency</label>
+      <select class="form-control" id="currency" [(ngModel)]="offer.price.currency" name="currency" (change)="resetPrice()">>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option>
+        <option value="PLN">PLN</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="seller">Select Seller</label>
+      <ng-container *ngIf="isOtherTypeSelected">
+        <input type="text" class="form-control" id="sellerInput" [(ngModel)]="offer.sellerId" name="seller" placeholder="Enter seller name" />
+      </ng-container>
+      <ng-container *ngIf="!isOtherTypeSelected">
+        <select class="form-control" id="seller" [(ngModel)]="offer.sellerId" name="seller">
+          <option *ngFor="let seller of sellers" [value]="seller.id">{{ seller.name }}</option>
+        </select>
+      </ng-container>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="activeStockNumber">Stock</label>
+      <input type="number" class="form-control" id="activeStockNumber" [(ngModel)]="offer.activeStockNumber" name="activeStockNumber" />
+    </div>
+  </form>
+</mat-dialog-content>

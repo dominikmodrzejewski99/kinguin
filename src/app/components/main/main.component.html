@@ -1,0 +1,34 @@
+<div class="container mt-5">
+  <input [(ngModel)]="id" (ngModelChange)="getApiRequest()" type="text" name="id" class="form-control" placeholder="Enter ID"/>
+</div>
+
+<div class="view-only-checkbox">
+  <label>
+    <input type="checkbox" [(ngModel)]="viewOnly" (change)="onViewOnlyChange()" />
+    View Only
+  </label>
+</div>
+
+<div class="container mt-4">
+  <div *ngIf="offers && offers.length > 0; else noOffers">
+    <div class="row">
+      <div *ngFor="let offer of offers" class="col-md-4 mb-3">
+        <div class="card" (click)="openDialog(offer)">
+          <img [src]="offer.productImageUrl" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ offer.productName }}</h5>
+            <p class="card-text">Seller: {{ offer.seller.name }}</p>
+            <p class="card-text">Price: {{ offer.price.amount / 100 }} {{ offer.price.currency }}</p>
+            <p class="card-text">Stock: {{ offer.activeStockNumber }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noOffers>
+    <p>No offers available.</p>
+  </ng-template>
+</div>
+
+
